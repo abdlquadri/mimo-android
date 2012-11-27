@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,9 +25,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.mimo.service.test.AppConstants;
-import com.mimo.service.test.MimoTransactions;
-import com.mimo.service.test.R;
+import com.mimo.service.example.AppConstants;
+import com.mimo.service.example.MimoTransactions;
+import com.mimo.service.example.R;
 
 public class MimoOauth2Client
 {
@@ -68,9 +69,12 @@ public class MimoOauth2Client
 	/**
 	 * Instantiate a webview and allows the user to login to the Api form within
 	 * the application
-	 * @param p_view : Calling view
 	 * 
-	 * @param p_activity : Calling Activity reference  
+	 * @param p_view
+	 *            : Calling view
+	 * 
+	 * @param p_activity
+	 *            : Calling Activity reference
 	 **/
 	
 	public void login(View p_view, Activity p_activity)
@@ -120,6 +124,17 @@ public class MimoOauth2Client
 			
 			@Override
 			public void onPageStarted(WebView _view, String url, Bitmap favicon)
+			{
+				
+			}
+			
+			@Override
+			public void onReceivedHttpAuthRequest(WebView p_view, HttpAuthHandler p_handler, String p_url, String p_realm)
+			{
+				p_handler.proceed("mimo", "mimo");
+			}
+			
+			public void onPageFinished(WebView view, String url)
 			{
 				Log.d(TAG, "Page Url = " + url);
 				
@@ -181,23 +196,18 @@ public class MimoOauth2Client
 						thread.start();
 					}
 				}
-			}
-			
-			@Override
-			public void onReceivedHttpAuthRequest(WebView p_view, HttpAuthHandler p_handler, String p_url, String p_realm)
-			{
-				p_handler.proceed("mimo", "mimo");
-			}
+			};
 		});
 		
 		m_webview.loadUrl(url);
 	}
 	
-	
-	
 	/**
-	 * This function calls the Mimo Server along with the client info and server authenticates the client and returns a valid access_token
-	 * @param p_code : code received from the Mimo Server
+	 * This function calls the Mimo Server along with the client info and server
+	 * authenticates the client and returns a valid access_token
+	 * 
+	 * @param p_code
+	 *            : code received from the Mimo Server
 	 * 
 	 * @return <b>m_token</b> : is the access token returned from the server
 	 **/
@@ -207,78 +217,62 @@ public class MimoOauth2Client
 		
 		String m_loadUrl = m_api.getAccessTokenRequestURL(p_code);
 		
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		HttpPost post = new HttpPost(m_loadUrl);
+		
+		String authString = "mimo:mimo";
+		String authStringEnc =
+				Base64.encodeToString(authString.getBytes(), Base64.NO_WRAP);
+		post.addHeader("Authorization", "Basic " + authStringEnc);
+		HttpResponse response = null;
+		
 		String m_token = null;
 		
 		try
 		{
-			URL m_requestUrl = new URL(m_loadUrl);
+			response = httpClient.execute(post);
+			
+			JSONObject m_jsonResp;
 			try
 			{
-				HttpsURLConnection m_httpConnt =
-						(HttpsURLConnection) m_requestUrl.openConnection();
-				// m_httpConnt.setRequestMethod("POST");
-				// m_httpConnt.setRequestProperty("Content-Type",
-				// "application/json");
-				// m_httpConnt.setConnectTimeout(20000);
-				// m_httpConnt.setDoOutput(true);
-				// m_httpConnt.connect();
-				
-				if (m_httpConnt.getResponseCode() != 200)
-				{
-					if (m_httpConnt.getResponseCode() == 400)
-					{
-						Log.d(TAG, "API Response Code is 400");
-						String m_errorStream =
-								convertStreamToString(m_httpConnt
-										.getErrorStream());
-						Log.d(TAG, "Parse the error :" + m_errorStream);
-					}
-					else
-					{
-						Log.d(TAG, "API Response Code is not 200 or 400");
-					}
-				}
-				else
-				{
-					
-//					InputStreamReader m_insReader =
-//							new InputStreamReader(m_httpConnt.getInputStream());					
-//					BufferedReader m_bufRead =
-//							new BufferedReader(m_insReader, 2048);//					
-//					StringBuilder m_sb = new StringBuilder();
-//					String m_cur;
-//					while ((m_cur = m_bufRead.readLine()) != null)
-//						m_sb.append(m_cur + "\n");
-//					m_insReader.close();
-					
-					JSONObject m_jsonResp = new JSONObject(convertStreamToString(m_httpConnt.getInputStream()));
-					
-//					m_jsonResp = new JSONObject(m_sb.toString());
-					m_token = m_jsonResp.getString("access_token");
-				}
-				
+				m_jsonResp =
+						new JSONObject(convertStreamToString(response
+								.getEntity().getContent()));
+				m_token = m_jsonResp.getString("access_token");
+				Log.d(TAG + "Access Token", m_token);
 				return m_token;
 			}
-			catch (IOException e)
+			catch (IllegalStateException e)
 			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (JSONException e)
+			{
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
+			// m_jsonResp = new JSONObject(m_sb.toString());
 		}
-		catch (MalformedURLException e)
+		catch (ClientProtocolException e)
 		{
 			e.printStackTrace();
 		}
-		catch (JSONException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+		
 		return "";
 	}
 	
 	/**
-	 * This function takes the Input Stream returned from the Server and convert that into String.
-	 * @param p_is : code received from the Mimo Server
+	 * This function takes the Input Stream returned from the Server and convert
+	 * that into String.
+	 * 
+	 * @param p_is
+	 *            : code received from the Mimo Server
 	 * 
 	 * @return <b>m_sb</b> : Server response
 	 **/
@@ -293,6 +287,7 @@ public class MimoOauth2Client
 		 */
 		if (p_is != null)
 		{
+			
 			StringBuilder m_sb = new StringBuilder();
 			String m_line;
 			
@@ -309,6 +304,7 @@ public class MimoOauth2Client
 			{
 				p_is.close();
 			}
+			Log.e(TAG, m_sb.toString());
 			return m_sb.toString();
 		}
 		else
@@ -316,5 +312,4 @@ public class MimoOauth2Client
 			return "";
 		}
 	}
-	
 }

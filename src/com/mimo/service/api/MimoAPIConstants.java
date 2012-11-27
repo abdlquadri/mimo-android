@@ -24,9 +24,19 @@ public final class MimoAPIConstants
 	
 	// GetAccess Token Url Constants
 	public static final String GET_ACCESSTOKEN_BASE_URL =
-			"https://staging.mimo.com.ng/v2/token?";
+			"https://staging.mimo.com.ng/oauth/v2/token?";
 	
 	public static final String GET_ACCESSTOKEN_KEY_GRANT_TYPE =
 			"&grant_type=authorization_code";
+	
+	// Searching URL Constants
+	public static final String GET_PROFILE_URL =
+			"https://staging.mimo.ng/partner/user/card_id?";
+	
+	public static final String SEARCH_USERNAME = "username=";
+	public static final String SEARCH_EMAIL = "email=";
+	public static final String SEARCH_PHONE = "phone=";
+	public static final String SEARCH_ACCOUNT_NUMBER = "account_number=";
+	public static final String ACCESS_TOKEN = "&access_token=";
 	
 }

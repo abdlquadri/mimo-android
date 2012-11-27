@@ -111,4 +111,25 @@ public class MimoAPI
 		return url.toString();
 	}
 	
+	/**
+	 * A function to generate the Accesstoken Request Url 
+	 * 
+	 * @param p_email
+	 *            :takes the email id for searching criteria.
+	 * 
+	 * @return url : url generated for making the Search By User Email request.
+	 **/
+	
+	public String getSearchByEmailRequestURL(String p_email)
+	{
+		StringBuffer url = new StringBuffer();
+		
+		url.append(MimoAPIConstants.GET_PROFILE_URL);
+		url.append(MimoAPIConstants.SEARCH_USERNAME + p_email);
+		url.append(MimoAPIConstants.ACCESS_TOKEN + this.m_token);
+		
+		Log.d(TAG, "SearchingRequest URL = " + url);
+		return url.toString();
+	}
+	
 }
