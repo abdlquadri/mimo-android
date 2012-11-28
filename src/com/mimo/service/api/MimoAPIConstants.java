@@ -31,12 +31,20 @@ public final class MimoAPIConstants
 	
 	// Searching URL Constants
 	public static final String GET_PROFILE_URL =
-			"https://staging.mimo.ng/partner/user/card_id?";
+			"https://staging.mimo.com.ng/partner/user/card_id?";
 	
 	public static final String SEARCH_USERNAME = "username=";
 	public static final String SEARCH_EMAIL = "email=";
 	public static final String SEARCH_PHONE = "phone=";
 	public static final String SEARCH_ACCOUNT_NUMBER = "account_number=";
 	public static final String ACCESS_TOKEN = "&access_token=";
+	
+	// Fund Transfer URL Constants
+	public static final String GET_TRANSFER_URL =
+			"https://staging.mimo.com.ng/partner/transfers";
+	
+	public static final String TRANSFER_ACCESS_TOKEN = "?access_token=";	
+	public static final String TRANSFER_NOTES = "&notes=";
+	public static final String TRANSFER_AMOUNT = "&amount=";
 	
 }

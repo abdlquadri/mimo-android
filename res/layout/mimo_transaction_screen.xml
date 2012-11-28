@@ -4,12 +4,186 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/mts_tvToken"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="" />
+  
+     <LinearLayout
+		 	android:layout_width="fill_parent"
+		 	android:layout_height="wrap_content"
+		 	android:background="#007df7"
+		 	android:padding="15dp">
+		 	<TextView
+		 		android:layout_width="fill_parent"
+		 		android:layout_height="wrap_content"
+		 		android:text="Profile"
+		 		android:textSize="18dp"
+				android:textStyle="bold"
+				android:layout_gravity="center"
+				android:gravity="center"
+				android:textColor="#FFFFFF">
+		 	</TextView>
+ </LinearLayout>
+ <ScrollView android:layout_width="fill_parent"
+     	android:layout_height="fill_parent">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal">
 
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            
+			    <EditText
+			        android:id="@+id/mts_etusername"
+			        android:layout_width="200dp"
+			        android:layout_height="wrap_content"
+			        android:inputType="textPersonName" 
+			      	android:hint="UserName">
+			
+			    </EditText>
+			
+			    <Button
+			        android:id="@+id/mts_btnSearch"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="Search" />
+			            
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+			    
+             <EditText
+		        android:id="@+id/mts_etEmail"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:inputType="textEmailAddress" 
+		      	android:hint="Email"
+		      	>
+		
+		    </EditText>
+		
+		    <Button
+		        android:id="@+id/mts_btnSearchEmail"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Search" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		    
+             <EditText
+		        android:id="@+id/mts_etPhone"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:inputType="phone" 
+		      	android:hint="Phone"
+		      	>
+		
+		    </EditText>
+		
+		    <Button
+		        android:id="@+id/mts_btnSearchPhone"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Search" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		    
+             <EditText
+		        android:id="@+id/mts_etAccountNumber"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:inputType="textPersonName" 
+		      	android:hint="Account Number"
+		      	>
+		
+		    </EditText>
+		
+		    <Button
+		        android:id="@+id/mts_btnSearchAccount"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Search" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:background="#007df7"
+            android:gravity="center"
+            android:layout_gravity="center">
+		     	<TextView
+		 		android:layout_width="fill_parent"
+		 		android:layout_height="wrap_content"
+		 		android:text="Transfer"
+		 		android:textSize="18dp"
+				android:textStyle="bold"
+				android:layout_gravity="center"
+				android:gravity="center"
+				android:textColor="#FFFFFF">
+		 	</TextView>
+            </TableRow>
+       
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp" >
+		    
+            <EditText
+		        android:id="@+id/mts_etNote"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:inputType="textPersonName" 
+		      	android:hint="Note"
+		      	>
+		
+		    </EditText>
+		    
+            </TableRow>
+		 <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"  >
+            
+             <EditText
+		        android:id="@+id/mts_etAmount"
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:inputType="number" 
+		      	android:hint="Amount"
+		      	>
+		
+		    </EditText>
+		   </TableRow>
+		<TableRow
+            android:id="@+id/tableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:gravity="center"> 
+		    <Button
+		        android:id="@+id/mts_btnTransfer"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Transfer" />
+        </TableRow>
+            
+    </TableLayout>
+
+    </ScrollView>
 </LinearLayout>
