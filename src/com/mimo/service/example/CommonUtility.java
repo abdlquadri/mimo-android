@@ -25,7 +25,8 @@ public class CommonUtility {
 	{
 		m_builder.setTitle(p_title);
 		m_builder.setMessage(p_mesg);
-		m_builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+		m_builder.setCancelable(false);
+		m_builder.setPositiveButton(p_context.getResources().getString(R.string.lbl_ok), new DialogInterface.OnClickListener(){
 			
 			@Override
 			public void onClick(DialogInterface p_dialog, int p_which)
@@ -48,7 +49,7 @@ public class CommonUtility {
 	 * @throws CustomException
 	 *             when any exception occurs during validation
 	 */
-	public static void validateForEmptyValue(EditText p_editText, String p_nullMsg) //throws CustomException
+	public static void validateForEmptyValue(EditText p_editText, String p_nullMsg) 
 	{
 		try
 		{
@@ -62,9 +63,9 @@ public class CommonUtility {
 				}
 			}
 		}
-		catch (Throwable e)
+		catch (Throwable p_e)
 		{
-			e.printStackTrace();
+			p_e.printStackTrace();
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package com.mimo.service.api;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -20,76 +19,73 @@ import android.util.Base64;
  */
 public class MimoHttpConnection
 {
-	private static String TAG = MimoHttpConnection.class.getSimpleName();
-	private static HttpURLConnection m_httpConnection;
-	private static HttpResponse m_httpResponse;
 	static Context m_context;
 	public MimoHttpConnection(Context p_context)
 	{
 		m_context=p_context;
 	}
 	/**
-	 * Function for getting HTTP URL connection object.
+	 * Function for getting HTTP URL connection object using get method.
 	 * 
 	 * @param p_url
 	 *            - Http Url
-	 * @return - HttpURLConnection object.
 	 * @throws ClientProtocolException 
 	 * @throws IOException
+	 * @return HttpResponse- Returns the HttpResponse .
 	 */
 	public static synchronized HttpResponse getHttpUrlConnection(String p_url) throws ClientProtocolException, IOException //throws CustomException
 	{
 
-				DefaultHttpClient httpClient = new DefaultHttpClient();
-				HttpGet get = new HttpGet(p_url);
+				DefaultHttpClient m_httpClient = new DefaultHttpClient();
+				HttpGet m_get = new HttpGet(p_url);
 				
-				String authString = "mimo:mimo";
-				String authStringEnc = Base64.encodeToString(authString.getBytes(),Base64.NO_WRAP);	
-				get.addHeader("Authorization", "Basic " + authStringEnc);		
-				HttpResponse response = null;
+				String m_authString = "mimo:mimo";
+				String m_authStringEnc = Base64.encodeToString(m_authString.getBytes(),Base64.NO_WRAP);	
+				m_get.addHeader("Authorization","Basic " + m_authStringEnc);		
+				HttpResponse m_response = null;
 				
 				try
 				{
-					response = httpClient.execute(get);
+					m_response = m_httpClient.execute(m_get);
 				}
 				catch (IllegalStateException e)
 				{
 					e.printStackTrace();
 				}
 			
-		return response;
+		return m_response;
 	}
 
 	/**
-	 * Function for getting HTTP URL connection object.
+	 * Function for getting HTTP URL connection object using the post method.
 	 * 
 	 * @param p_url
 	 *            - Http Url
-	 * @return - HttpURLConnection object.
 	 * @throws ClientProtocolException 
 	 * @throws IOException
+	 * @return HttpResponse- Returns the HttpResponse .
 	 */
 	public static synchronized HttpResponse getHttpTransferUrlConnection(String p_url) throws ClientProtocolException, IOException //throws CustomException
 	{
 
-				DefaultHttpClient httpClient = new DefaultHttpClient();
-				HttpPost post = new HttpPost(p_url);
+				DefaultHttpClient m_httpClient = new DefaultHttpClient();
+				HttpPost m_post = new HttpPost(p_url);
 				
-				String authString = "mimo:mimo";
-				String authStringEnc = Base64.encodeToString(authString.getBytes(),Base64.NO_WRAP);	
-				post.addHeader("Authorization", "Basic " + authStringEnc);		
-				HttpResponse response = null;
+				String m_authString =  "mimo:mimo";
+				String m_authStringEnc = Base64.encodeToString(m_authString.getBytes(),Base64.NO_WRAP);	
+				m_post.addHeader("Authorization","Basic " + m_authStringEnc);		
+				HttpResponse m_response = null;
 				
 				try
 				{
-					response = httpClient.execute(post);
+					m_response = m_httpClient.execute(m_post);
 				}
 				catch (IllegalStateException e)
 				{
 					e.printStackTrace();
 				}
 			
-		return response;
+		return m_response;
 	}
 	
 }

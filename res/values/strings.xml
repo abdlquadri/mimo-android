@@ -4,17 +4,30 @@
     <string name="app_name">MimoServiceAPI</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="LoginText">Login</string>
+    <string name="lbl_warning">Warning!</string>
+    <string name="lbl_login">Login</string>
     <string name="error_username">Please enter username</string>
 	<string name="error_password">Please enter password</string>
 	<string name="invalid_info">Invalid username &amp; password</string>
 	<string name="UnableToReadFrmServer">Unable to read data from server</string>
 	<string name="ProgressViewLoading">Loading...</string>
-	<string name="lbl_ok">Ok</string>
+	<string name="lbl_ok">OK</string>
 	<string name="error_email">Please enter email address</string>
 	<string name="error_phone">Please enter phone</string>
 	<string name="error_account_number">Please enter account number</string>
 	<string name="error_note">Please enter note</string>
 	<string name="error_amount">Please enter amount</string>
-
+	<string name="error_secret">Please provide client id and client secret</string>
+<!-- 	<string name="authentication">Authorization</string> -->
+<!-- 	<string name="basic">Basic</string> -->
+<!-- 	<string name="username_password">mimo:mimo</string> -->
+	<string name="hint_username">UserName</string>
+	<string name="lbl_profile">Profile</string>
+	<string name="hint_email">Email</string>
+	<string name="hint_phone">Phone</string>
+	<string name="hint_accountnumber">Account Number</string>
+	<string name="hint_note">Note</string>
+	<string name="hint_amount">Amount</string>
+	<string name="lbl_transfer">Transfer</string>
+	<string name="lbl_search">Search</string>
 </resources>

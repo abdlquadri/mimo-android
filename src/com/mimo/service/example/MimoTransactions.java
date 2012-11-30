@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpConnection;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
@@ -13,191 +12,185 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.mimo.service.api.CustomProgressDialog;
 import com.mimo.service.api.MimoAPI;
+import com.mimo.service.api.MimoAPIConstants;
 import com.mimo.service.api.MimoHttpConnection;
 
 public class MimoTransactions extends Activity 
 {
-	private TextView m_tvToken,m_tvDetails;
 	private MimoAPI m_api;
-	private Button m_btnSearch,m_btnSearchEmail,m_btnSearchPhone,m_btnSearchAccount,m_btnTransfer;
-	private EditText m_etSearchParameter,m_etEmail,m_etPhone,m_etAccount,m_etNote,m_etAmount;
+	private Button m_btnSearch, m_btnSearchEmail, m_btnSearchPhone,
+			m_btnSearchAccount, m_btnTransfer;
+	private EditText m_etSearchParameter, m_etEmail, m_etPhone, m_etAccount,
+			m_etNote, m_etAmount;
 	private Context m_context;
-	String m_sDetails,m_str,m_Url;
-	CommonUtility m_commnUtils;
-	MimoHttpConnection m_httpcont;
+	private String m_sDetails, m_Url;
+	private MimoHttpConnection m_mimoHttpConnection;
+	private CommonUtility m_commonUtils;
+	private CustomProgressDialog m_customProgress;
+	private InputMethodManager m_imm ;
 	@Override
-	protected void onCreate(Bundle p_savedInstanceState)
-	{
+	protected void onCreate(Bundle p_savedInstanceState) {
 		super.onCreate(p_savedInstanceState);
 		setContentView(R.layout.mimo_transaction_screen);
-		m_context=MimoTransactions.this;
-		m_httpcont=new MimoHttpConnection(m_context);
-		m_commnUtils=new CommonUtility(m_context);
-		
-		m_btnSearch=(Button)findViewById(R.id.mts_btnSearch);
-		m_btnSearchEmail=(Button)findViewById(R.id.mts_btnSearchEmail);
-		m_btnSearchPhone=(Button)findViewById(R.id.mts_btnSearchPhone);
-		m_btnSearchAccount=(Button)findViewById(R.id.mts_btnSearchAccount);
-		m_btnTransfer=(Button)findViewById(R.id.mts_btnTransfer);
-		
-		m_etSearchParameter=(EditText)findViewById(R.id.mts_etusername);
-		m_etEmail=(EditText)findViewById(R.id.mts_etEmail);
-		m_etPhone=(EditText)findViewById(R.id.mts_etPhone);
-		m_etAccount=(EditText)findViewById(R.id.mts_etAccountNumber);
-		m_etNote=(EditText)findViewById(R.id.mts_etNote);
-		m_etAmount=(EditText)findViewById(R.id.mts_etAmount);
-		
-		Bundle extras = getIntent().getExtras();
-		
-		if (extras != null)
-		{
-			String token = extras.getString(AppConstants.KEY_TOKEN);
-			 
+		m_context = MimoTransactions.this;
+		m_mimoHttpConnection =new MimoHttpConnection(m_context);
+		m_commonUtils=new CommonUtility(m_context);
+		m_customProgress=new CustomProgressDialog(m_context);
+		m_imm= (InputMethodManager)m_context.getSystemService(
+			    INPUT_METHOD_SERVICE);
+		m_customProgress.setCancelable(false);	
+		m_btnSearch = (Button) findViewById(R.id.mts_btnSearch);
+		m_btnSearchEmail = (Button) findViewById(R.id.mts_btnSearchEmail);
+		m_btnSearchPhone = (Button) findViewById(R.id.mts_btnSearchPhone);
+		m_btnSearchAccount = (Button) findViewById(R.id.mts_btnSearchAccount);
+		m_btnTransfer = (Button) findViewById(R.id.mts_btnTransfer);
+
+		m_etSearchParameter = (EditText) findViewById(R.id.mts_etusername);
+		m_etEmail = (EditText) findViewById(R.id.mts_etEmail);
+		m_etPhone = (EditText) findViewById(R.id.mts_etPhone);
+		m_etAccount = (EditText) findViewById(R.id.mts_etAccountNumber);
+		m_etNote = (EditText) findViewById(R.id.mts_etNote);
+		m_etAmount = (EditText) findViewById(R.id.mts_etAmount);
+
+		Bundle m_extras = getIntent().getExtras();
+
+		if (m_extras != null) {
+			String m_token = m_extras.getString(MimoAPIConstants.KEY_TOKEN);
+
 			m_api = new MimoAPI();
-			m_api.setAccessToken(token);
+			m_api.settoken(m_token);
 		}
-		
+
 		m_btnSearch.setOnClickListener(OnClickListener);
 		m_btnSearchEmail.setOnClickListener(OnClickListener);
 		m_btnSearchPhone.setOnClickListener(OnClickListener);
 		m_btnSearchAccount.setOnClickListener(OnClickListener);
 		m_btnTransfer.setOnClickListener(OnClickListener);
 	}
-	
-	OnClickListener OnClickListener=new OnClickListener()
-	{
-		
+
+	/**
+	 * Common click listener
+	 */
+	OnClickListener OnClickListener = new OnClickListener() {
+
 		@Override
 		public void onClick(View p_v) {
-			switch(p_v.getId())
-			{
+			switch (p_v.getId()) {
 			case R.id.mts_btnSearch:
+				
+				m_imm.hideSoftInputFromWindow(m_btnSearch.getWindowToken(), 0);
 				CommonUtility.m_isError = false;
 				CommonUtility.validateForEmptyValue(m_etSearchParameter,
 						getResources().getString(R.string.error_username));
-				if(!CommonUtility.m_isError)
-				{
+				if (!CommonUtility.m_isError) {
 					try {
-						m_Url=MimoAPI.getSearchByUsernameRequestURL(m_etSearchParameter.getText().toString());
-						m_str=searchRequestParameter(m_Url);
-					} catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+						m_Url = MimoAPI
+								.getSearchByUsernameRequestURL(m_etSearchParameter
+										.getText().toString());
+						search1(m_Url);
+					} catch (ClientProtocolException p_e) {
+						p_e.printStackTrace();
+					} catch (IOException p_e) {
+						p_e.printStackTrace();
 					}
-					
-					m_commnUtils.showOneButtonDialog(
-							getResources().getString(R.string.app_name),
-							m_str,m_context);
-					m_str="";
+
 					m_etSearchParameter.setText("");
 				}
 				break;
-				
+
 			case R.id.mts_btnSearchEmail:
-				
-				CommonUtility.m_isError = false;	
-				CommonUtility.validateForEmptyValue(m_etEmail,
-						getResources().getString(R.string.error_email));
-				if(!CommonUtility.m_isError)
-				{
+				m_imm.hideSoftInputFromWindow(m_btnSearchEmail.getWindowToken(), 0);
+				CommonUtility.m_isError = false;
+				CommonUtility.validateForEmptyValue(m_etEmail, getResources()
+						.getString(R.string.error_email));
+				if (!CommonUtility.m_isError) {
 					try {
-						m_Url=MimoAPI.getSearchByEmailRequestURL(m_etEmail.getText().toString());
-						m_str=searchRequestParameter(m_Url);
+						m_Url = MimoAPI.getSearchByEmailRequestURL(m_etEmail
+								.getText().toString());
+						search1(m_Url);
 					} catch (ClientProtocolException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					
-					m_commnUtils.showOneButtonDialog(
-							getResources().getString(R.string.app_name),
-							m_str,m_context);
-					m_str="";
+
 					m_etEmail.setText("");
 				}
 				break;
-				
 
 			case R.id.mts_btnSearchPhone:
+				m_imm.hideSoftInputFromWindow(m_btnSearchPhone.getWindowToken(), 0);
 				CommonUtility.m_isError = false;
-				CommonUtility.validateForEmptyValue(m_etPhone,
-						getResources().getString(R.string.error_phone));
-				if(!CommonUtility.m_isError)
-				{
+				CommonUtility.validateForEmptyValue(m_etPhone, getResources()
+						.getString(R.string.error_phone));
+				if (!CommonUtility.m_isError) {
 					try {
-						m_Url=MimoAPI.getSearchByPhoneRequestURL(m_etPhone.getText().toString());
-						m_str=searchRequestParameter(m_Url);
-					} catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+						m_Url = MimoAPI.getSearchByPhoneRequestURL(m_etPhone
+								.getText().toString());
+						search1(m_Url);
+					} catch (ClientProtocolException p_e) {
+						p_e.printStackTrace();
+					} catch (IOException p_e) {
+						p_e.printStackTrace();
 					}
-					
-					m_commnUtils.showOneButtonDialog(
-							getResources().getString(R.string.app_name),
-							m_str,m_context);
-					m_str="";
+
 					m_etPhone.setText("");
 				}
 				break;
-				
-				
 
 			case R.id.mts_btnSearchAccount:
+				m_imm.hideSoftInputFromWindow(m_btnSearchAccount.getWindowToken(), 0);
 				CommonUtility.m_isError = false;
-				CommonUtility.validateForEmptyValue(m_etAccount,
-						getResources().getString(R.string.error_account_number));
-				
-				if(!CommonUtility.m_isError)
-				{
+				CommonUtility.validateForEmptyValue(m_etAccount, getResources()
+						.getString(R.string.error_account_number));
+
+				if (!CommonUtility.m_isError) {
 					try {
-						m_Url=MimoAPI.getSearchByAccountRequestURL(m_etAccount.getText().toString());
-						m_str=searchRequestParameter(m_Url);
+						m_Url = MimoAPI
+								.getSearchByAccountRequestURL(m_etAccount
+										.getText().toString());
+						search1(m_Url);
 					} catch (ClientProtocolException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					
-					m_commnUtils.showOneButtonDialog(
-							getResources().getString(R.string.app_name),
-							m_str,m_context);
-					m_str="";
+
 					m_etAccount.setText("");
 				}
 				break;
-				
+
 			case R.id.mts_btnTransfer:
+				m_imm.hideSoftInputFromWindow(m_btnTransfer.getWindowToken(), 0);
 				CommonUtility.m_isError = false;
-				CommonUtility.validateForEmptyValue(m_etNote,
-						getResources().getString(R.string.error_note));
-			
-				if(!CommonUtility.m_isError)
-				{
+				CommonUtility.validateForEmptyValue(m_etNote, getResources()
+						.getString(R.string.error_note));
+
+				CommonUtility.validateForEmptyValue(m_etAmount, getResources()
+						.getString(R.string.error_note));
+				if (!CommonUtility.m_isError) {
 					try {
-						m_Url=MimoAPI.getTransferRequestURL(m_etNote.getText().toString(),
-								Integer.parseInt(m_etAmount.getText().toString()));
-						m_str=TransferFundRequest(m_Url);
-					} catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+						m_Url = MimoAPI.getTransferRequestURL(m_etNote
+								.getText().toString(), Integer
+								.parseInt(m_etAmount.getText().toString()));
+						 transaction(m_Url);
+					} catch (ClientProtocolException p_e) {
+						p_e.printStackTrace();
+					} catch (IOException p_e) {
+						p_e.printStackTrace();
 					}
-					
-					m_commnUtils.showOneButtonDialog(
-							getResources().getString(R.string.app_name),
-							m_str,m_context);
-					m_str="";
+
 					m_etAmount.setText("");
 					m_etNote.setText("");
 				}
@@ -207,90 +200,132 @@ public class MimoTransactions extends Activity
 	};
 	
 	/**
-	 * Method that search for the Parameter provided as a parameter to get the details.
-	 * @param p_username- contains the username
+	 * Method that search for the Parameter provided as a parameter to get the
+	 * details.
+	 * 
+	 * @param p_parameter
+	 *            - contains the searching parameter
 	 * @throws ClientProtocolException
 	 * @throws IOException
-	 * @return Value of the searching details
 	 */
-	public String searchRequestParameter(String p_parameter) throws ClientProtocolException, IOException
+	public void search1(final String p_parameter)
+			throws ClientProtocolException, IOException 
 	{
-			HttpResponse m_response=null;
-			m_response=MimoHttpConnection.getHttpUrlConnection(p_parameter);
-		
-		final	JSONObject m_jsonResp;
-		try
+		class FetchData extends AsyncTask
 		{
-			try {
-				m_jsonResp =
-						new JSONObject(convertStreamToString(m_response.getEntity().getContent()));
+			@Override
+			protected void onPreExecute() 
+			{
+				super.onPreExecute();
+				m_customProgress.show();
+			}
+			@Override
+			protected String doInBackground(Object... p_params) 
+			{
+				HttpResponse m_response = null;
+				final JSONObject m_jsonResp;
+				try {
+					m_response = MimoHttpConnection.getHttpUrlConnection(p_parameter);
+					try {
+						m_jsonResp = new JSONObject(convertStreamToString(m_response
+								.getEntity().getContent()));
+						if (m_jsonResp.toString().contains("error")) {
+							m_sDetails = m_jsonResp.getString("error");
+						} else {
+							m_sDetails = m_jsonResp.getString("account_number") + "\n"
+									+ m_jsonResp.getString("username") + "\n"
+									+ m_jsonResp.getString("surname");
+						}
+					} catch (IllegalStateException p_e) {
+						p_e.printStackTrace();
+					} catch (JSONException p_e) {
+						p_e.printStackTrace();
+					}
+				} catch (ClientProtocolException p_e) {
+					p_e.printStackTrace();
+				} catch (IOException p_e) {
+					p_e.printStackTrace();
+				}
 				
-			if(m_jsonResp.toString().equalsIgnoreCase("error"))
-			{
-				m_sDetails=m_jsonResp.getString("error");
+				return m_sDetails;
 			}
-			else
-			{
-				m_sDetails=m_jsonResp.getString("account_number") +"\n"+
-						m_jsonResp.getString("username")+"\n"+m_jsonResp.getString("surname");
+			@Override
+			protected void onPostExecute(Object p_result) {
+				super.onPostExecute(p_result);
+				m_customProgress.dismiss();
+				m_commonUtils.showOneButtonDialog(
+						getResources().getString(R.string.app_name),
+						m_sDetails, m_context);
+				m_sDetails="";
 			}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		
-		return m_sDetails;
+		new FetchData().execute(null);
 	}
 	
-	
+
 	/**
 	 * Method that Transfer the fund to the provided url.
-	 * @param p_url- contains the fund transfer url
+	 * 
+	 * @param p_url
+	 *            - contains the fund transfer url
 	 * @throws ClientProtocolException
 	 * @throws IOException
-	 * @return m_sDetails- returns the success message.
 	 */
-	public String TransferFundRequest(String p_url) throws ClientProtocolException, IOException
+	public void transaction(final String p_url) throws ClientProtocolException,IOException 
 	{
-			HttpResponse m_response=null;
-			m_response=MimoHttpConnection.getHttpTransferUrlConnection(p_url);
-		
-		final	JSONObject m_jsonResp;
-		try
+		class TransactionData extends AsyncTask
 		{
-			try {
-				m_jsonResp =
-						new JSONObject(convertStreamToString(m_response.getEntity().getContent()));
-				
-			if(m_jsonResp.toString().equalsIgnoreCase("error"))
+			@Override
+			protected void onPreExecute() 
 			{
-				m_sDetails=m_jsonResp.getString("error");
+				super.onPreExecute();
+				m_customProgress.show();
 			}
-			else
-			{
-				m_sDetails=m_jsonResp.getString("message");
+			
+			@Override
+			protected String doInBackground(Object... p_params) {
+				HttpResponse m_response = null;
+
+				final JSONObject m_jsonResp;
+				try {
+					m_response = MimoHttpConnection.getHttpTransferUrlConnection(p_url);
+					try {
+						m_jsonResp = new JSONObject(convertStreamToString(m_response
+								.getEntity().getContent()));
+
+						if (m_jsonResp.toString().contains("error")) {
+							m_sDetails = m_jsonResp.getString("error");
+						} else {
+							m_sDetails = m_jsonResp.getString("message");
+						}
+					} catch (IllegalStateException p_e) {
+						p_e.printStackTrace();
+					} catch (JSONException p_e) {
+						p_e.printStackTrace();
+					}
+				} catch (ClientProtocolException p_e) {
+					p_e.printStackTrace();
+				} catch (IOException p_e) {
+					p_e.printStackTrace();
+				}
+
+				return m_sDetails;
 			}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
+			
+			@Override
+			protected void onPostExecute(Object p_result) {
+				super.onPostExecute(p_result);
+				m_customProgress.dismiss();
+				m_commonUtils.showOneButtonDialog(
+						getResources().getString(R.string.app_name),
+						m_sDetails, m_context);
+				m_sDetails="";
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		new TransactionData().execute(null);
 		
-		return m_sDetails;
 	}
-	
-	
+
 	/**
 	 * This function takes the Input Stream returned from the Server and convert
 	 * that into String.
@@ -308,8 +343,7 @@ public class MimoTransactions extends Activity
 		 * return null which means there's no more data to read. Each line will
 		 * appended to a StringBuilder and returned as String.
 		 */
-		if (p_is != null) 
-		{
+		if (p_is != null) {
 			StringBuilder m_sb = new StringBuilder();
 			String m_line;
 
@@ -328,6 +362,35 @@ public class MimoTransactions extends Activity
 			return "";
 		}
 	}
-	
-	
+
+	/**
+	 * free up the memory by clearing the instances of the views.
+	 */
+	private void clearViews()
+	{
+		m_btnSearch = null;
+		m_btnSearchEmail = null;
+		m_btnSearchPhone = null;
+		m_btnSearchAccount = null;
+		m_btnTransfer = null;
+		m_etSearchParameter = null;
+		m_etEmail = null;
+		m_etPhone = null;
+		m_etAccount = null;
+		m_etNote = null;
+		m_etAmount = null;
+		m_context = null;
+		m_sDetails = null;
+		m_Url = null;
+		m_commonUtils=null;
+		m_customProgress=null;
+		m_imm =null;
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		clearViews();
+	}
+
 }

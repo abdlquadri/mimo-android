@@ -1,11 +1,19 @@
 package com.mimo.service.api;
 
+import android.content.Context;
+
 public final class MimoAPIConstants
 {
 	// CLIENT INFO Constants:
 	public static final String CLIENT_ID = "NfXwj_-nso1NYdpZ";
 	public static final String CLIENT_SECRET = "xv-lHx9FusqgBWbEWkjDSn5x";
 	public static final String REDIRECT_URL = "http://google.com";
+	
+//	public static final String CLIENT_ID = "<Provide Client Id Here>"; //Provide the Client Id here.
+//	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; //Provide the Client Secret here.
+//	public static final String REDIRECT_URL = "<Provide your Redirect Url Here>"; //Provide your Redirect Url Here
+	
+	public static boolean DEBUG=false;
 	
 	// Url Constants
 	public static final String URL_KEY_CLIENT_ID = "client_id=";
@@ -47,4 +55,14 @@ public final class MimoAPIConstants
 	public static final String TRANSFER_NOTES = "&notes=";
 	public static final String TRANSFER_AMOUNT = "&amount=";
 	
+	
+	// Activity Navigation Constants
+	public static final String KEY_TOKEN = "token";
+	public static final String KEY_CLIENT_ID = "client_id";
+	public static final String KEY_CLIENT_SECRET = "client_secret";
+		
+	public static final int CONNECTION_TIMEOUT=10000;
+	public static final int READ_TIMEOUT=10000;
+	public static Context m_context;
+	public static int DEFAULT_MSG = 0;
 }
