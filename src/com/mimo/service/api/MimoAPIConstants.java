@@ -5,13 +5,9 @@ import android.content.Context;
 public final class MimoAPIConstants
 {
 	// CLIENT INFO Constants:
-	public static final String CLIENT_ID = "NfXwj_-nso1NYdpZ";
-	public static final String CLIENT_SECRET = "xv-lHx9FusqgBWbEWkjDSn5x";
-	public static final String REDIRECT_URL = "http://google.com";
-	
-//	public static final String CLIENT_ID = "<Provide Client Id Here>"; //Provide the Client Id here.
-//	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; //Provide the Client Secret here.
-//	public static final String REDIRECT_URL = "<Provide your Redirect Url Here>"; //Provide your Redirect Url Here
+	public static final String CLIENT_ID = "<Provide Client Id Here>"; //Provide the Client Id here.
+	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; //Provide the Client Secret here.
+	public static final String REDIRECT_URL = "<Provide your Redirect Url Here>"; //Provide your Redirect Url Here
 	
 	public static boolean DEBUG=false;
 	
