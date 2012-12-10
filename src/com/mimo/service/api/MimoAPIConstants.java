@@ -4,19 +4,32 @@ import android.content.Context;
 
 public final class MimoAPIConstants
 {
-	// CLIENT INFO Constants:
-	public static final String CLIENT_ID = "<Provide Client Id Here>"; //Provide the Client Id here.
-	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; //Provide the Client Secret here.
-	public static final String REDIRECT_URL = "<Provide your Redirect Url Here>"; //Provide your Redirect Url Here
 	
-	public static boolean DEBUG=false;
+	// Client ID & Client Secret Validation Constants
+	
+	public static final String CLIENT_ID_TEXT = "<Provide Client Id Here>";
+	public static final String CLIENT_SECRET_TEXT = "<Provide Client Secret Here>";
+	
+	public static final String CLIENT_ID = "<Provide Client Id Here>"; // Provide
+																		// the
+																		// Client
+																		// Id
+																		// here.
+	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; // Provide
+																				// the
+																				// Client
+																				// Secret
+																				// here.
+ 
+	
+	public static final String REDIRECT_URL = "http://google.com";
+	public static boolean DEBUG = false;
 	
 	// Url Constants
 	public static final String URL_KEY_CLIENT_ID = "client_id=";
 	public static final String URL_KEY_CLIENT_SECRET = "&client_secret=";
 	public static final String URL_KEY_REDIRECT_URL = "&url=";
 	public static final String URL_KEY_CODE = "&code=";
-	
 	public static final String URL_KEY_TOKEN = "?token=";
 	
 	// Authenticate Url Constants
@@ -47,18 +60,35 @@ public final class MimoAPIConstants
 	public static final String GET_TRANSFER_URL =
 			"https://staging.mimo.com.ng/partner/transfers";
 	
-	public static final String TRANSFER_ACCESS_TOKEN = "?access_token=";	
+	public static final String TRANSFER_ACCESS_TOKEN = "?access_token=";
 	public static final String TRANSFER_NOTES = "&notes=";
 	public static final String TRANSFER_AMOUNT = "&amount=";
 	
+	// Base Authentication Constants
+	public static final String USERNAME = "mimo";
+	public static final String PASSWORD = "mimo";
+	
+	// Connection Class Constants
+	public static final String HEADER_TEXT_AUTHORIZATION = "Authorization";
+	public static final String HEADER_TEXT_BASIC = "Basic ";
+	public static final String DIALOG_TEXT_LOADING = "Loading...";
+	
+	public static final String GET_ACCESS_TOKEN = "access_token";
+	public static final int CONNECTION_TIMEOUT = 10000;
+	public static final int READ_TIMEOUT = 10000;
+	public static Context m_context;
+	public static int DEFAULT_MSG = 0;
 	
 	// Activity Navigation Constants
 	public static final String KEY_TOKEN = "token";
 	public static final String KEY_CLIENT_ID = "client_id";
 	public static final String KEY_CLIENT_SECRET = "client_secret";
-		
-	public static final int CONNECTION_TIMEOUT=10000;
-	public static final int READ_TIMEOUT=10000;
-	public static Context m_context;
-	public static int DEFAULT_MSG = 0;
+	
+	// Parsing Constants
+	public static final String KEY_ACCOUNT_NUMBER = "account_number";
+	public static final String KEY_USERNAME = "username";
+	public static final String KEY_SURNAME = "surname";
+	public static final String KEY_ERROR = "error";
+	public static final String KEY_MESSAGE = "message";
+	
 }

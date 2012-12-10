@@ -10,12 +10,15 @@ import android.widget.Button;
 import com.mimo.service.api.MimoAPIConstants;
 import com.mimo.service.api.MimoOauth2Client;
 
+/**
+ * Main launcher activity which shows login button.
+ * 
+ */
 public class MimoLogin extends Activity implements OnClickListener
 {
 	
 	private Button m_btnLogin;
 	private MimoOauth2Client m_oauthClient;
-	
 	@SuppressWarnings("unused")
 	private CommonUtility m_commonUtils;
 	private Context m_context;
@@ -33,6 +36,14 @@ public class MimoLogin extends Activity implements OnClickListener
 		m_oauthClient = new MimoOauth2Client(MimoLogin.this);
 	}
 	
+	/**
+	 * The OnClick Listener of the Activity assigned to the required click able
+	 * widgets/controls Displayed in the Screen UI.
+	 * 
+	 * @param p_v
+	 *            : is the view on which user had clicked in the layout and thus this event is called.
+	 */
+	
 	@Override
 	public void onClick(View p_v)
 	{
@@ -40,9 +51,9 @@ public class MimoLogin extends Activity implements OnClickListener
 		if (p_v.equals(m_btnLogin))
 		{
 			if (MimoAPIConstants.CLIENT_ID
-					.equalsIgnoreCase("<Provide Client Id Here>")
+					.equalsIgnoreCase(MimoAPIConstants.CLIENT_ID_TEXT)
 					|| MimoAPIConstants.CLIENT_SECRET
-							.equalsIgnoreCase("<Provide Client Secret Here>"))
+							.equalsIgnoreCase(MimoAPIConstants.CLIENT_SECRET_TEXT))
 			{
 				CommonUtility.showOneButtonDialog(
 						getResources().getString(R.string.lbl_warning),
@@ -56,6 +67,9 @@ public class MimoLogin extends Activity implements OnClickListener
 		}
 	}
 	
+	/**
+	 * Loads the layout onResume() event.
+	 */
 	@Override
 	protected void onResume()
 	{
@@ -78,6 +92,10 @@ public class MimoLogin extends Activity implements OnClickListener
 		m_commonUtils = null;
 		m_context = null;
 	}
+	
+	/**
+	 * default method called with the Activity is closed.
+	 */
 	
 	@Override
 	protected void onDestroy()

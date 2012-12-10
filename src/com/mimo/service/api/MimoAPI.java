@@ -5,6 +5,10 @@ import java.net.URLEncoder;
 
 import android.util.Log;
 
+/**
+ *This class generates the URLs  for various requests i.e. Search ,request token etc.
+ *
+ */
 public class MimoAPI
 {
 	private static final String TAG = MimoAPI.class.getName();
@@ -63,8 +67,8 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Authentication Request Url which is to be
-	 * opened in the webview
+	 * A function to generate the Authentication Request Url which is to be opened
+	 * in the webview
 	 * 
 	 * @return url : url generated for making the Authentication request.
 	 **/
@@ -79,7 +83,7 @@ public class MimoAPI
 		m_url.append(MimoAPIConstants.URL_KEY_REDIRECT_URL
 				+ MimoAPIConstants.REDIRECT_URL);
 		m_url.append(MimoAPIConstants.AUTHENTICATE_KEY_RESPONSE_TYPE);
-		if (MimoAPIConstants.DEBUG)
+		if(MimoAPIConstants.DEBUG)
 		{
 			Log.d(TAG, "AuthenticationRequest URL = " + m_url);
 		}
@@ -87,7 +91,7 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Accesstoken Request Url
+	 * A function to generate the Accesstoken Request Url 
 	 * 
 	 * @param p_Code
 	 *            :the code received from the application.
@@ -107,7 +111,7 @@ public class MimoAPI
 				+ MimoAPIConstants.REDIRECT_URL);
 		m_url.append(MimoAPIConstants.URL_KEY_CODE + p_Code);
 		m_url.append(MimoAPIConstants.GET_ACCESSTOKEN_KEY_GRANT_TYPE);
-		if (MimoAPIConstants.DEBUG)
+		if(MimoAPIConstants.DEBUG)
 		{
 			Log.d(TAG, "getAccessTokenRequest URL = " + m_url);
 		}
@@ -284,5 +288,6 @@ public class MimoAPI
 		}
 		return m_url.toString();
 	}
+	
 	
 }

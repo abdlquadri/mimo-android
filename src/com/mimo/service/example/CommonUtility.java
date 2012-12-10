@@ -1,13 +1,20 @@
 package com.mimo.service.example;
 
+import com.mimo.service.api.MimoAPIConstants;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-
-public class CommonUtility {
+/**
+ * Common class which contains common utility functions to be used in
+ * application.
+ * 
+ */
+public class CommonUtility
+{
 	
 	public static AlertDialog m_alertDialog;
 	public static AlertDialog.Builder m_builder;
@@ -19,20 +26,31 @@ public class CommonUtility {
 	}
 	
 	/**
-	 * This is common method to display dialog with one button("Ok button")
+	 * This is common method to display alert dialog with one
+	 * button("Ok button")
+	 * 
+	 * @param p_title
+	 *            : is the title to be set in the Alert Dialog.
+	 * @param p_mesg
+	 *            : is the Message String to be set in the Alert Dialog.
+	 * @param p_context
+	 *            : is the Context of the Activity From which the Dialog is
+	 *            requested.
 	 */
-	public static void showOneButtonDialog(String p_title,String p_mesg,final Context p_context)
+	public static void showOneButtonDialog(String p_title, String p_mesg, final Context p_context)
 	{
 		m_builder.setTitle(p_title);
 		m_builder.setMessage(p_mesg);
 		m_builder.setCancelable(false);
-		m_builder.setPositiveButton(p_context.getResources().getString(R.string.lbl_ok), new DialogInterface.OnClickListener(){
-			
-			@Override
-			public void onClick(DialogInterface p_dialog, int p_which)
-			{
-			}
-		});
+		m_builder.setPositiveButton(
+				p_context.getResources().getString(R.string.lbl_ok),
+				new DialogInterface.OnClickListener(){
+					
+					@Override
+					public void onClick(DialogInterface p_dialog, int p_which)
+					{
+					}
+				});
 		
 		m_alertDialog = m_builder.create();
 		m_alertDialog.show();
@@ -49,7 +67,7 @@ public class CommonUtility {
 	 * @throws CustomException
 	 *             when any exception occurs during validation
 	 */
-	public static void validateForEmptyValue(EditText p_editText, String p_nullMsg) 
+	public static void validateForEmptyValue(EditText p_editText, String p_nullMsg)
 	{
 		try
 		{
@@ -65,7 +83,10 @@ public class CommonUtility {
 		}
 		catch (Throwable p_e)
 		{
-			p_e.printStackTrace();
+			if (MimoAPIConstants.DEBUG)
+			{
+				p_e.printStackTrace();
+			}
 		}
 	}
 }
