@@ -2,24 +2,31 @@ package com.mimo.service.api;
 
 import android.content.Context;
 
+/**
+ * This class holds the list of all the Constants required for this API. 
+ *
+ */
 public final class MimoAPIConstants
 {
+	// CLIENT INFO Constants:
+	 public static final String CLIENT_ID = "NfXwj_-nso1NYdpZ";
+	 public static final String CLIENT_SECRET = "xv-lHx9FusqgBWbEWkjDSn5x";
 	
 	// Client ID & Client Secret Validation Constants
 	
 	public static final String CLIENT_ID_TEXT = "<Provide Client Id Here>";
 	public static final String CLIENT_SECRET_TEXT = "<Provide Client Secret Here>";
 	
-	public static final String CLIENT_ID = "<Provide Client Id Here>"; // Provide
-																		// the
-																		// Client
-																		// Id
-																		// here.
-	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; // Provide
-																				// the
-																				// Client
-																				// Secret
-																				// here.
+//	public static final String CLIENT_ID = "<Provide Client Id Here>"; // Provide
+//																		// the
+//																		// Client
+//																		// Id
+//																		// here.
+//	public static final String CLIENT_SECRET = "<Provide Client Secret Here>"; // Provide
+//																				// the
+//																				// Client
+//																				// Secret
+//																				// here.
  
 	
 	public static final String REDIRECT_URL = "http://google.com";

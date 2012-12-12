@@ -10,16 +10,18 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.util.Base64;
+import android.util.Log;
 
 /**
  * Class used to support all the Data Access layer methods like fetching data
- * from the server or storing/retrieving using HttpConnection<br>
- * data from the local SQLLite server.
+ * from the server or storing/retrieving using HttpConnection.
  * 
  */
 public class MimoHttpConnection
 {
 	static Context m_context;
+	
+	private static final String TAG = MimoHttpConnection.class.getName();
 	
 	public MimoHttpConnection(Context p_context)
 	{
@@ -27,13 +29,13 @@ public class MimoHttpConnection
 	}
 	
 	/**
-	 * Function for getting HTTP URL connection object using get method.
+	 * Function for Making HTTP "get" request and getting server response.
 	 * 
 	 * @param p_url
 	 *            - Http Url
 	 * @throws ClientProtocolException
 	 * @throws IOException
-	 * @return HttpResponse- Returns the HttpResponse .
+	 * @return HttpResponse- Returns the HttpResponse.
 	 */
 	public static synchronized HttpResponse getHttpUrlConnection(String p_url) throws ClientProtocolException, IOException // throws
 																															// CustomException
@@ -57,7 +59,7 @@ public class MimoHttpConnection
 		{
 			if (MimoAPIConstants.DEBUG)
 			{
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage());
 			}
 		}
 		
@@ -65,13 +67,13 @@ public class MimoHttpConnection
 	}
 	
 	/**
-	 * Function for getting HTTP URL connection object using the post method.
+	 * Function for Making HTTP "post" request and getting server response.
 	 * 
 	 * @param p_url
 	 *            - Http Url
 	 * @throws ClientProtocolException
 	 * @throws IOException
-	 * @return HttpResponse- Returns the HttpResponse .
+	 * @return HttpResponse- Returns the HttpResponse.
 	 */
 	public static synchronized HttpResponse getHttpTransferUrlConnection(String p_url) throws ClientProtocolException, IOException // throws
 																																	// CustomException
@@ -95,7 +97,7 @@ public class MimoHttpConnection
 		{
 			if (MimoAPIConstants.DEBUG)
 			{
-				e.printStackTrace();
+				Log.e(TAG, e.getMessage());
 			}
 		}
 		

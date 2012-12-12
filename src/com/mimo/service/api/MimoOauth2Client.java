@@ -31,8 +31,8 @@ import com.mimo.service.example.R;
 
 /**
  * 
- * This class is used to load the URLs in webview and request for the access
- * token based on the loaded URL.
+ * This class provides the method for doing the OAuth 2.0 Authentication. Also
+ * it provides methods to get the Access Token from the client web site.
  * 
  */
 public class MimoOauth2Client
@@ -145,7 +145,8 @@ public class MimoOauth2Client
 			@Override
 			public void onReceivedHttpAuthRequest(WebView p_view, HttpAuthHandler p_handler, String p_url, String p_realm)
 			{
-				p_handler.proceed(MimoAPIConstants.USERNAME, MimoAPIConstants.PASSWORD);
+				p_handler.proceed(MimoAPIConstants.USERNAME,
+						MimoAPIConstants.PASSWORD);
 			}
 			
 			public void onPageFinished(WebView p_view, String p_url)
@@ -185,7 +186,8 @@ public class MimoOauth2Client
 										new Intent(m_activity,
 												MimoTransactions.class);
 								
-								m_navigateIntent.putExtra(MimoAPIConstants.KEY_TOKEN, m_token);
+								m_navigateIntent.putExtra(
+										MimoAPIConstants.KEY_TOKEN, m_token);
 								
 								m_activity.startActivity(m_navigateIntent);
 							}
@@ -279,7 +281,7 @@ public class MimoOauth2Client
 			{
 				if (MimoAPIConstants.DEBUG)
 				{
-					Log.e(TAG, p_e.getMessage()); 
+					Log.e(TAG, p_e.getMessage());
 				}
 			}
 			catch (JSONException p_e)

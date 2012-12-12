@@ -27,7 +27,9 @@ import com.mimo.service.api.MimoAPIConstants;
 import com.mimo.service.api.MimoHttpConnection;
 
 /**
- * A class that contains all the searching & transaction functionality.
+ * A class demonstrates all the API methods provide by Mimo API. Like wise
+ * searching User based on UserName, Email, Account#, Phone# & most important
+ * money/fund transfer service method.
  * 
  */
 public class MimoTransactions extends Activity
@@ -43,6 +45,8 @@ public class MimoTransactions extends Activity
 	private CommonUtility m_commonUtils;
 	private CustomProgressDialog m_customProgress;
 	private InputMethodManager m_imm;
+	
+	private static final String TAG = MimoTransactions.class.getName();
 	
 	@Override
 	protected void onCreate(Bundle p_savedInstanceState)
@@ -115,18 +119,18 @@ public class MimoTransactions extends Activity
 												.getText().toString());
 								search1(m_Url);
 							}
-							catch (ClientProtocolException p_e)
+							catch (ClientProtocolException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									p_e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
-							catch (IOException p_e)
+							catch (IOException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									p_e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							
@@ -153,14 +157,14 @@ public class MimoTransactions extends Activity
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							catch (IOException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							
@@ -183,18 +187,18 @@ public class MimoTransactions extends Activity
 												.getText().toString());
 								search1(m_Url);
 							}
-							catch (ClientProtocolException p_e)
+							catch (ClientProtocolException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									p_e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
-							catch (IOException p_e)
+							catch (IOException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									p_e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							
@@ -224,14 +228,14 @@ public class MimoTransactions extends Activity
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							catch (IOException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							
@@ -259,18 +263,18 @@ public class MimoTransactions extends Activity
 														.toString()));
 								transaction(m_Url);
 							}
-							catch (ClientProtocolException p_e)
+							catch (ClientProtocolException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									p_e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
-							catch (IOException p_e)
+							catch (IOException e)
 							{
 								if (MimoAPIConstants.DEBUG)
 								{
-									p_e.printStackTrace();
+									Log.e(TAG, e.getMessage());
 								}
 							}
 							
@@ -337,33 +341,33 @@ public class MimoTransactions extends Activity
 													.getString(MimoAPIConstants.KEY_SURNAME);
 						}
 					}
-					catch (IllegalStateException p_e)
+					catch (IllegalStateException e)
 					{
 						if (MimoAPIConstants.DEBUG)
 						{
-							p_e.printStackTrace();
+							Log.e(TAG, e.getMessage());
 						}
 					}
-					catch (JSONException p_e)
+					catch (JSONException e)
 					{
 						if (MimoAPIConstants.DEBUG)
 						{
-							p_e.printStackTrace();
+							Log.e(TAG, e.getMessage());
 						}
 					}
 				}
-				catch (ClientProtocolException p_e)
+				catch (ClientProtocolException e)
 				{
 					if (MimoAPIConstants.DEBUG)
 					{
-						p_e.printStackTrace();
+						Log.e(TAG, e.getMessage());
 					}
 				}
-				catch (IOException p_e)
+				catch (IOException e)
 				{
 					if (MimoAPIConstants.DEBUG)
 					{
-						p_e.printStackTrace();
+						Log.e(TAG, e.getMessage());
 					}
 				}
 				
@@ -420,42 +424,47 @@ public class MimoTransactions extends Activity
 								new JSONObject(convertStreamToString(m_response
 										.getEntity().getContent()));
 						
-						if (m_jsonResp.toString().contains(MimoAPIConstants.KEY_ERROR))
+						if (m_jsonResp.toString().contains(
+								MimoAPIConstants.KEY_ERROR))
 						{
-							m_sDetails = m_jsonResp.getString(MimoAPIConstants.KEY_ERROR);
+							m_sDetails =
+									m_jsonResp
+											.getString(MimoAPIConstants.KEY_ERROR);
 						}
 						else
 						{
-							m_sDetails = m_jsonResp.getString(MimoAPIConstants.KEY_MESSAGE);
+							m_sDetails =
+									m_jsonResp
+											.getString(MimoAPIConstants.KEY_MESSAGE);
 						}
 					}
-					catch (IllegalStateException p_e)
+					catch (IllegalStateException e)
 					{
 						if (MimoAPIConstants.DEBUG)
 						{
-							p_e.printStackTrace();
+							Log.e(TAG, e.getMessage());
 						}
 					}
-					catch (JSONException p_e)
+					catch (JSONException e)
 					{
 						if (MimoAPIConstants.DEBUG)
 						{
-							p_e.printStackTrace();
+							Log.e(TAG, e.getMessage());
 						}
 					}
 				}
-				catch (ClientProtocolException p_e)
+				catch (ClientProtocolException e)
 				{
 					if (MimoAPIConstants.DEBUG)
 					{
-						p_e.printStackTrace();
+						Log.e(TAG, e.getMessage());
 					}
 				}
-				catch (IOException p_e)
+				catch (IOException e)
 				{
 					if (MimoAPIConstants.DEBUG)
 					{
-						p_e.printStackTrace();
+						Log.e(TAG, e.getMessage());
 					}
 				}
 				

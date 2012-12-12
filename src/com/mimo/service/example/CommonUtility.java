@@ -1,11 +1,13 @@
 package com.mimo.service.example;
 
 import com.mimo.service.api.MimoAPIConstants;
+import com.mimo.service.api.MimoHttpConnection;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 
 /**
@@ -19,6 +21,8 @@ public class CommonUtility
 	public static AlertDialog m_alertDialog;
 	public static AlertDialog.Builder m_builder;
 	public static boolean m_isError = false;
+	
+	private static final String TAG = CommonUtility.class.getName();
 	
 	public CommonUtility(Context p_context)
 	{
@@ -64,7 +68,7 @@ public class CommonUtility
 	 *            {@link EditText} to validate
 	 * @param p_nullMsg
 	 *            message to be display when field is empty
-	 * @throws CustomException
+	 * @throws Throwable
 	 *             when any exception occurs during validation
 	 */
 	public static void validateForEmptyValue(EditText p_editText, String p_nullMsg)
@@ -81,11 +85,11 @@ public class CommonUtility
 				}
 			}
 		}
-		catch (Throwable p_e)
+		catch (Throwable e)
 		{
 			if (MimoAPIConstants.DEBUG)
 			{
-				p_e.printStackTrace();
+				Log.e(TAG, e.getMessage());
 			}
 		}
 	}

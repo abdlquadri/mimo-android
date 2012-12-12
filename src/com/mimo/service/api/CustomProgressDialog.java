@@ -12,10 +12,10 @@ import com.mimo.service.example.R;
 public class CustomProgressDialog extends ProgressDialog
 {
 	/**
-	 * Create a new Progressdialog using the <b>p_context</b>
+	 * Create a new Progress dialog using the <b>p_context</b>
 	 * 
 	 * @param p_context
-	 *            The class Context where the progressdialog is to be created
+	 *            The class Context where the progress dialog is to be created
 	 */
 	public CustomProgressDialog(Context p_context)
 	{

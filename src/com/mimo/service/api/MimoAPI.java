@@ -6,8 +6,11 @@ import java.net.URLEncoder;
 import android.util.Log;
 
 /**
- *This class generates the URLs  for various requests i.e. Search ,request token etc.
- *
+ * This class generates the URLs for various requests i.e. Search ,request token
+ * etc. Also manages the Value of Access token received form the web site. this
+ * token is used for making other transactions requests like searching user and
+ * fund transfer etc.
+ * 
  */
 public class MimoAPI
 {
@@ -67,8 +70,8 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Authentication Request Url which is to be opened
-	 * in the webview
+	 * A function to generate the Authentication Request Url which is to be
+	 * opened in the webview
 	 * 
 	 * @return url : url generated for making the Authentication request.
 	 **/
@@ -83,7 +86,7 @@ public class MimoAPI
 		m_url.append(MimoAPIConstants.URL_KEY_REDIRECT_URL
 				+ MimoAPIConstants.REDIRECT_URL);
 		m_url.append(MimoAPIConstants.AUTHENTICATE_KEY_RESPONSE_TYPE);
-		if(MimoAPIConstants.DEBUG)
+		if (MimoAPIConstants.DEBUG)
 		{
 			Log.d(TAG, "AuthenticationRequest URL = " + m_url);
 		}
@@ -91,7 +94,7 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Accesstoken Request Url 
+	 * A function to generate the Accesstoken Request Url
 	 * 
 	 * @param p_Code
 	 *            :the code received from the application.
@@ -111,7 +114,7 @@ public class MimoAPI
 				+ MimoAPIConstants.REDIRECT_URL);
 		m_url.append(MimoAPIConstants.URL_KEY_CODE + p_Code);
 		m_url.append(MimoAPIConstants.GET_ACCESSTOKEN_KEY_GRANT_TYPE);
-		if(MimoAPIConstants.DEBUG)
+		if (MimoAPIConstants.DEBUG)
 		{
 			Log.d(TAG, "getAccessTokenRequest URL = " + m_url);
 		}
@@ -119,12 +122,12 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Accesstoken Request Url
+	 * A function to generate the Search by UserName Request Url
 	 * 
 	 * @param p_username
 	 *            :takes the username for searching criteria.
 	 * 
-	 * @return url : url generated for making the Search By User Email request.
+	 * @return url : url generated for making the Search By UserName request.
 	 **/
 	
 	public static String getSearchByUsernameRequestURL(String p_username)
@@ -140,7 +143,7 @@ public class MimoAPI
 		catch (UnsupportedEncodingException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 			m_url.append(MimoAPIConstants.SEARCH_USERNAME + p_username);
 		}
 		m_url.append(MimoAPIConstants.ACCESS_TOKEN + m_token);
@@ -152,7 +155,7 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Accesstoken Request Url
+	 * A function to generate the Search By User Email Request Url
 	 * 
 	 * @param p_email
 	 *            :takes the email id for searching criteria.
@@ -173,7 +176,7 @@ public class MimoAPI
 		catch (UnsupportedEncodingException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 			m_url.append(MimoAPIConstants.SEARCH_EMAIL + p_email);
 		}
 		m_url.append(MimoAPIConstants.ACCESS_TOKEN + m_token);
@@ -185,12 +188,12 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Accesstoken Request Url
+	 * A function to generate the Search By User phone# Request Url
 	 * 
 	 * @param p_phone
 	 *            :takes the phone for searching criteria.
 	 * 
-	 * @return url : url generated for making the Search By User phone request.
+	 * @return url : url generated for making the Search By User phone# request.
 	 **/
 	
 	public static String getSearchByPhoneRequestURL(String p_phone)
@@ -206,7 +209,7 @@ public class MimoAPI
 		catch (UnsupportedEncodingException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 			m_url.append(MimoAPIConstants.SEARCH_PHONE + p_phone);
 		}
 		m_url.append(MimoAPIConstants.ACCESS_TOKEN + m_token);
@@ -219,7 +222,7 @@ public class MimoAPI
 	}
 	
 	/**
-	 * A function to generate the Accesstoken Request Url
+	 * A function to generate the Search By User account number Request Url
 	 * 
 	 * @param p_account
 	 *            :takes the account number for searching criteria.
@@ -241,7 +244,7 @@ public class MimoAPI
 		catch (UnsupportedEncodingException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 			m_url.append(MimoAPIConstants.SEARCH_ACCOUNT_NUMBER + p_account);
 		}
 		m_url.append(MimoAPIConstants.ACCESS_TOKEN + m_token);
@@ -258,8 +261,8 @@ public class MimoAPI
 	 * @param p_amount
 	 *            :takes the account number for searching criteria.
 	 * 
-	 * @return url : url generated for making the Search By User account number
-	 *         request.
+	 * @return url : url generated for making the Fund Transfer Request Url.
+	 * 
 	 **/
 	
 	public static String getTransferRequestURL(String p_notes, int p_amount)
@@ -276,7 +279,7 @@ public class MimoAPI
 		catch (UnsupportedEncodingException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 			m_url.append(MimoAPIConstants.TRANSFER_NOTES + p_notes);
 		}
 		
@@ -288,6 +291,5 @@ public class MimoAPI
 		}
 		return m_url.toString();
 	}
-	
 	
 }
