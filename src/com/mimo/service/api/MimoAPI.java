@@ -99,7 +99,7 @@ public class MimoAPI
 	 * @param p_Code
 	 *            :the code received from the application.
 	 * 
-	 * @return url : url generated for making the Authentication request.
+	 * @return url : url generated for making the Accesstoken request.
 	 **/
 	public String requesttoken(String p_Code)
 	{
@@ -259,10 +259,10 @@ public class MimoAPI
 	 * A function to generate the Fund Transfer Request Url
 	 * 
 	 * @param p_amount
-	 *            :takes the account number for searching criteria.
+	 *            :takes the amount which is to be transfered.
 	 * @param p_notes 
 	 * 				:takes the notes.
-	 * @return url : url generated for making the Fund Transfer Request Url.
+	 * @return url : url generated for making the Fund Transfer Request.
 	 * 
 	 **/
 	
@@ -296,12 +296,12 @@ public class MimoAPI
 	 * A function to generate the Re-Fund Transfer Request Url
 	 * 
 	 * @param p_amount
-	 *            :takes the account number for searching criteria.
+	 *            :takes the amount to be refunded.
 	 * @param p_notest 
 	 * 				:takes the notes.
 	 * @param p_transId
 	 * 				: takes the transaction id of any transaction.
-	 * @return url : url generated for making the Re-Fund Transfer Request Url.
+	 * @return url : url generated for making the Re-Fund Transfer Request.
 	 * 
 	 **/
 	public static String getRefundTransferUrl(String p_notes, int p_amount,int p_transId)
