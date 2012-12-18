@@ -260,7 +260,8 @@ public class MimoAPI
 	 * 
 	 * @param p_amount
 	 *            :takes the account number for searching criteria.
-	 * 
+	 * @param p_notes 
+	 * 				:takes the notes.
 	 * @return url : url generated for making the Fund Transfer Request Url.
 	 * 
 	 **/
@@ -278,7 +279,6 @@ public class MimoAPI
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			// TODO Auto-generated catch block
 			Log.e(TAG, e.getMessage());
 			m_url.append(MimoAPIConstants.TRANSFER_NOTES + p_notes);
 		}
@@ -292,4 +292,44 @@ public class MimoAPI
 		return m_url.toString();
 	}
 	
+	/**
+	 * A function to generate the Re-Fund Transfer Request Url
+	 * 
+	 * @param p_amount
+	 *            :takes the account number for searching criteria.
+	 * @param p_notest 
+	 * 				:takes the notes.
+	 * @param p_transId
+	 * 				: takes the transaction id of any transaction.
+	 * @return url : url generated for making the Re-Fund Transfer Request Url.
+	 * 
+	 **/
+	public static String getRefundTransferUrl(String p_notes, int p_amount,int p_transId)
+	{
+		StringBuffer m_url = new StringBuffer();
+		
+		m_url.append(MimoAPIConstants.REFUND_TRANSFER_URL);
+		m_url.append(MimoAPIConstants.TRANSFER_ACCESS_TOKEN + m_token);
+		try
+		{
+			m_url.append(MimoAPIConstants.TRANSFER_NOTES
+					+ URLEncoder.encode(p_notes, "utf-8"));
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			Log.e(TAG, e.getMessage());
+			m_url.append(MimoAPIConstants.TRANSFER_NOTES + p_notes);
+		}
+		
+		m_url.append(MimoAPIConstants.TRANSFER_AMOUNT + p_amount);
+		m_url.append(MimoAPIConstants.REFUND_TRANSFER_TRANSACTION_ID + p_transId);
+		
+		if (MimoAPIConstants.DEBUG)
+		{
+			Log.d(TAG, "Re-Fund TransferRequest URL = " + m_url);
+		}
+		
+		return m_url.toString();
+		
+	}
 }

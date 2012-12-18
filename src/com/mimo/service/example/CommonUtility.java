@@ -1,14 +1,13 @@
 package com.mimo.service.example;
 
-import com.mimo.service.api.MimoAPIConstants;
-import com.mimo.service.api.MimoHttpConnection;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+
+import com.mimo.service.api.MimoAPIConstants;
 
 /**
  * Common class which contains common utility functions to be used in

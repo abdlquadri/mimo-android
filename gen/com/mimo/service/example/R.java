@@ -15,26 +15,30 @@ public final class R {
     }
     public static final class id {
         public static final int lg_btnLogin=0x7f070000;
-        public static final int menu_settings=0x7f070014;
+        public static final int menu_settings=0x7f070018;
         public static final int mts_btnSearch=0x7f070003;
         public static final int mts_btnSearchAccount=0x7f07000c;
         public static final int mts_btnSearchEmail=0x7f070006;
         public static final int mts_btnSearchPhone=0x7f070009;
-        public static final int mts_btnTransfer=0x7f070013;
+        public static final int mts_btnTransfer=0x7f070015;
+        public static final int mts_btnreFundTransfer=0x7f070017;
         public static final int mts_etAccountNumber=0x7f07000b;
         public static final int mts_etAmount=0x7f070011;
         public static final int mts_etEmail=0x7f070005;
         public static final int mts_etNote=0x7f07000f;
         public static final int mts_etPhone=0x7f070008;
+        public static final int mts_etTransactionId=0x7f070013;
         public static final int mts_etusername=0x7f070002;
         public static final int tableRow1=0x7f070001;
+        public static final int tableRow10=0x7f070012;
         public static final int tableRow2=0x7f070004;
         public static final int tableRow3=0x7f070007;
         public static final int tableRow4=0x7f07000a;
         public static final int tableRow5=0x7f07000d;
         public static final int tableRow6=0x7f07000e;
         public static final int tableRow7=0x7f070010;
-        public static final int tableRow8=0x7f070012;
+        public static final int tableRow8=0x7f070014;
+        public static final int tableRow9=0x7f070016;
     }
     public static final class layout {
         public static final int login=0x7f030000;
@@ -48,30 +52,33 @@ public final class R {
         public static final int UnableToReadFrmServer=0x7f040008;
         public static final int app_name=0x7f040000;
         public static final int error_account_number=0x7f04000d;
-        public static final int error_amount=0x7f04000f;
+        public static final int error_amount=0x7f040010;
         public static final int error_email=0x7f04000b;
+        public static final int error_id=0x7f04000f;
         public static final int error_note=0x7f04000e;
         public static final int error_password=0x7f040006;
         public static final int error_phone=0x7f04000c;
-        public static final int error_secret=0x7f040010;
+        public static final int error_secret=0x7f040011;
         public static final int error_username=0x7f040005;
         public static final int hello_world=0x7f040001;
-        public static final int hint_accountnumber=0x7f040015;
-        public static final int hint_amount=0x7f040017;
-        public static final int hint_email=0x7f040013;
-        public static final int hint_note=0x7f040016;
-        public static final int hint_phone=0x7f040014;
+        public static final int hint_accountnumber=0x7f040016;
+        public static final int hint_amount=0x7f040018;
+        public static final int hint_email=0x7f040014;
+        public static final int hint_note=0x7f040017;
+        public static final int hint_phone=0x7f040015;
+        public static final int hint_transactionId=0x7f040019;
         /**  	<string name="authentication">Authorization</string> 
  	<string name="basic">Basic</string> 
  	<string name="username_password">mimo:mimo</string> 
          */
-        public static final int hint_username=0x7f040011;
+        public static final int hint_username=0x7f040012;
         public static final int invalid_info=0x7f040007;
         public static final int lbl_login=0x7f040004;
         public static final int lbl_ok=0x7f04000a;
-        public static final int lbl_profile=0x7f040012;
-        public static final int lbl_search=0x7f040019;
-        public static final int lbl_transfer=0x7f040018;
+        public static final int lbl_profile=0x7f040013;
+        public static final int lbl_refund_transfer=0x7f04001c;
+        public static final int lbl_search=0x7f04001b;
+        public static final int lbl_transfer=0x7f04001a;
         public static final int lbl_warning=0x7f040003;
         public static final int menu_settings=0x7f040002;
     }

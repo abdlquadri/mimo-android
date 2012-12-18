@@ -28,9 +28,8 @@ public final class MimoAPIConstants
 //																				// Secret
 //																				// here.
  
-	
 	public static final String REDIRECT_URL = "http://google.com";
-	public static boolean DEBUG = false;
+	public static boolean DEBUG = true;
 	
 	// Url Constants
 	public static final String URL_KEY_CLIENT_ID = "client_id=";
@@ -71,6 +70,10 @@ public final class MimoAPIConstants
 	public static final String TRANSFER_NOTES = "&notes=";
 	public static final String TRANSFER_AMOUNT = "&amount=";
 	
+	//Re-fund Transfer URL Constants
+	public static final String REFUND_TRANSFER_URL="https://staging.mimo.com.ng/partner/refunds";
+	public static final String REFUND_TRANSFER_TRANSACTION_ID="&transaction_id=";
+	
 	// Base Authentication Constants
 	public static final String USERNAME = "mimo";
 	public static final String PASSWORD = "mimo";
@@ -97,5 +100,6 @@ public final class MimoAPIConstants
 	public static final String KEY_SURNAME = "surname";
 	public static final String KEY_ERROR = "error";
 	public static final String KEY_MESSAGE = "message";
+	public static final String KEY_TRANSACTION_ID="transaction_id";
 	
 }

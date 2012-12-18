@@ -16,6 +16,7 @@
 	<string name="error_phone">Please enter phone</string>
 	<string name="error_account_number">Please enter account number</string>
 	<string name="error_note">Please enter note</string>
+	<string name="error_id">Please enter transaction id</string>
 	<string name="error_amount">Please enter amount</string>
 	<string name="error_secret">Please provide client id and client secret</string>
 <!-- 	<string name="authentication">Authorization</string> -->
@@ -28,6 +29,8 @@
 	<string name="hint_accountnumber">Account Number</string>
 	<string name="hint_note">Note</string>
 	<string name="hint_amount">Amount</string>
+	<string name="hint_transactionId">Transaction Id</string>
 	<string name="lbl_transfer">Transfer</string>
 	<string name="lbl_search">Search</string>
+	<string name="lbl_refund_transfer">Refund Transfer</string>
 </resources>

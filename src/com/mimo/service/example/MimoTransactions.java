@@ -36,11 +36,12 @@ public class MimoTransactions extends Activity
 {
 	private MimoAPI m_api;
 	private Button m_btnSearch, m_btnSearchEmail, m_btnSearchPhone,
-			m_btnSearchAccount, m_btnTransfer;
+			m_btnSearchAccount, m_btnTransfer,m_btnRefundTransfer;
 	private EditText m_etSearchParameter, m_etEmail, m_etPhone, m_etAccount,
-			m_etNote, m_etAmount;
+			m_etNote, m_etAmount, m_etTransactionId;
 	private Context m_context;
-	private String m_sDetails, m_Url;
+	private String m_sDetails, m_Url,m_sTransId;
+	private int m_iTransId=0;
 	private MimoHttpConnection m_mimoHttpConnection;
 	private CommonUtility m_commonUtils;
 	private CustomProgressDialog m_customProgress;
@@ -66,13 +67,15 @@ public class MimoTransactions extends Activity
 		m_btnSearchPhone = (Button) findViewById(R.id.mts_btnSearchPhone);
 		m_btnSearchAccount = (Button) findViewById(R.id.mts_btnSearchAccount);
 		m_btnTransfer = (Button) findViewById(R.id.mts_btnTransfer);
-		
+		m_btnRefundTransfer=(Button) findViewById(R.id.mts_btnreFundTransfer);
+
 		m_etSearchParameter = (EditText) findViewById(R.id.mts_etusername);
 		m_etEmail = (EditText) findViewById(R.id.mts_etEmail);
 		m_etPhone = (EditText) findViewById(R.id.mts_etPhone);
 		m_etAccount = (EditText) findViewById(R.id.mts_etAccountNumber);
 		m_etNote = (EditText) findViewById(R.id.mts_etNote);
 		m_etAmount = (EditText) findViewById(R.id.mts_etAmount);
+		m_etTransactionId= (EditText) findViewById(R.id.mts_etTransactionId);
 		
 		Bundle m_extras = getIntent().getExtras();
 		
@@ -89,6 +92,7 @@ public class MimoTransactions extends Activity
 		m_btnSearchPhone.setOnClickListener(OnClickListener);
 		m_btnSearchAccount.setOnClickListener(OnClickListener);
 		m_btnTransfer.setOnClickListener(OnClickListener);
+		m_btnRefundTransfer.setOnClickListener(OnClickListener);
 	}
 	
 	/**
@@ -251,7 +255,7 @@ public class MimoTransactions extends Activity
 								getResources().getString(R.string.error_note));
 						
 						CommonUtility.validateForEmptyValue(m_etAmount,
-								getResources().getString(R.string.error_note));
+								getResources().getString(R.string.error_amount));
 						if (!CommonUtility.m_isError)
 						{
 							try
@@ -282,6 +286,51 @@ public class MimoTransactions extends Activity
 							m_etNote.setText("");
 						}
 						break;
+						
+					case R.id.mts_btnreFundTransfer:
+						
+						m_imm.hideSoftInputFromWindow(
+								m_btnRefundTransfer.getWindowToken(), 0);
+						CommonUtility.m_isError = false;
+						CommonUtility.validateForEmptyValue(m_etNote,
+								getResources().getString(R.string.error_note));
+						
+						CommonUtility.validateForEmptyValue(m_etAmount,
+								getResources().getString(R.string.error_amount));
+						CommonUtility.validateForEmptyValue(m_etTransactionId,
+								getResources().getString(R.string.error_id));
+						
+						if (!CommonUtility.m_isError)
+						{
+							try
+							{
+								m_Url =
+										MimoAPI.getRefundTransferUrl(m_etNote
+												.getText().toString(), Integer
+												.parseInt(m_etAmount.getText()
+														.toString()),Integer.parseInt(m_etTransactionId.getText().toString()));
+								transaction(m_Url);
+							}
+							catch (ClientProtocolException e)
+							{
+								if (MimoAPIConstants.DEBUG)
+								{
+									Log.e(TAG, e.getMessage());
+								}
+							}
+							catch (IOException e)
+							{
+								if (MimoAPIConstants.DEBUG)
+								{
+									Log.e(TAG, e.getMessage());
+								}
+							}
+							
+							m_etAmount.setText("");
+							m_etNote.setText("");
+						}
+						break;
+						
 				}
 		}
 	};
@@ -436,6 +485,14 @@ public class MimoTransactions extends Activity
 							m_sDetails =
 									m_jsonResp
 											.getString(MimoAPIConstants.KEY_MESSAGE);
+							
+							m_iTransId=Integer.parseInt(m_jsonResp
+							.getString(MimoAPIConstants.KEY_TRANSACTION_ID));
+							
+							if(MimoAPIConstants.DEBUG)
+							{
+								System.err.println("Transaction Id---->"+m_iTransId);
+							}
 						}
 					}
 					catch (IllegalStateException e)
@@ -479,6 +536,7 @@ public class MimoTransactions extends Activity
 				m_commonUtils.showOneButtonDialog(
 						getResources().getString(R.string.app_name),
 						m_sDetails, m_context);
+				m_etTransactionId.setText(String.valueOf(m_iTransId));
 				m_sDetails = "";
 			}
 		}
