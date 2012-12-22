@@ -5,36 +5,51 @@
     android:orientation="vertical"
     android:background="#ffffff" >
 
-  
-     <LinearLayout
-		 	android:layout_width="fill_parent"
-		 	android:layout_height="wrap_content"
-		 	android:background="#007df7"
-		 	android:padding="15dp">
-		 	<TextView
-		 		android:layout_width="fill_parent"
+     <RelativeLayout
+         android:id="@+id/crtalbm_fl2"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:background="#007df7"
+         android:padding="5dp" >
+
+		<Button android:id="@+id/mts_btnProfile"
+		 		android:layout_width="wrap_content"
 		 		android:layout_height="wrap_content"
 		 		android:text="@string/lbl_profile"
-		 		android:textSize="18sp"
-				android:textStyle="bold"
-				android:layout_gravity="center"
-				android:gravity="center"
-				android:textColor="#FFFFFF">
-		 	</TextView>
- </LinearLayout>
- <ScrollView android:layout_width="fill_parent"
-     	android:layout_height="fill_parent">
+		 		android:textSize="15sp"
+				android:layout_alignParentLeft="true"
+				>
+		 </Button>
+		 
+		<Button
+		    	android:id="@+id/mts_btnTransferTitle"
+		 		android:layout_width="wrap_content"
+		 		android:layout_height="wrap_content"
+		 		android:text="@string/lbl_transfer"
+		 		android:textSize="15sp"
+				android:layout_alignParentRight="true"
+				>
+		 	</Button>
+        </RelativeLayout>
+
+ <ViewFlipper
+     android:id="@+id/mts_vfflipper"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:layout_marginTop="10dp" >
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp" >
+        android:layout_marginLeft="20dp">
 
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
 
             <EditText
                 android:id="@+id/mts_etusername"
@@ -54,7 +69,8 @@
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
 
             <EditText
                 android:id="@+id/mts_etEmail"
@@ -74,7 +90,8 @@
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
 
             <EditText
                 android:id="@+id/mts_etPhone"
@@ -94,7 +111,8 @@
         <TableRow
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            android:layout_gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/mts_etAccountNumber"
@@ -111,31 +129,20 @@
                 android:text="@string/lbl_search" />
         </TableRow>
 
-        <TableRow
-            android:id="@+id/tableRow5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#007df7"
-            android:gravity="center" >
+</TableLayout>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/lbl_transfer"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" >
-            </TextView>
-        </TableRow>
-
+    <ScrollView android:layout_width="fill_parent"
+     		android:layout_height="fill_parent">
+ <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+         >
+    
         <TableRow
             android:id="@+id/tableRow6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:gravity="center_horizontal" >
 
             <EditText
@@ -161,21 +168,6 @@
                 android:inputType="number" >
             </EditText>
         </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" >
-
-            <EditText
-                android:id="@+id/mts_etTransactionId"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_transactionId"
-                android:inputType="number" >
-            </EditText>
-        </TableRow>
         
         <TableRow
             android:id="@+id/tableRow8"
@@ -190,13 +182,95 @@
                 android:text="@string/lbl_transfer" />
             
         </TableRow>
-        
+        <View android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#CCCCCC"
+            android:layout_marginBottom="5dp"/>
         <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/mts_etTransactionId"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_transactionId"
+                android:inputType="number" >
+            </EditText>
+        </TableRow>
+          <TableRow
                 android:id="@+id/tableRow9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
             	android:gravity="center_horizontal"
-            	android:layout_marginBottom="20dp">
+            	>
+
+                <Button
+                    android:id="@+id/mts_btnCancelTransfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_cancel_transfer"
+                    android:enabled="true"/>
+            </TableRow>
+        
+        <View android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#CCCCCC"
+            android:layout_marginBottom="5dp"/>
+        
+          <TableRow
+            android:id="@+id/tableRow11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/mts_etRefundNote"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_note"
+                android:inputType="textPersonName" >
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/mts_etRefundAmount"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_refundamount"
+                android:inputType="number" >
+            </EditText>
+        </TableRow>
+         <TableRow
+            android:id="@+id/tableRow13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/mts_etReFundTransId"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_transactionId"
+                android:inputType="number" >
+            </EditText>
+        </TableRow>
+        
+        <TableRow
+                android:id="@+id/tableRow14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            	android:gravity="center_horizontal"
+            	>
 
                 <Button
                     android:id="@+id/mts_btnreFundTransfer"
@@ -206,6 +280,6 @@
                     android:enabled="true"/>
             </TableRow>
     </TableLayout>
-
     </ScrollView>
+</ViewFlipper>
 </LinearLayout>

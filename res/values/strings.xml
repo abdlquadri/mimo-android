@@ -29,8 +29,10 @@
 	<string name="hint_accountnumber">Account Number</string>
 	<string name="hint_note">Note</string>
 	<string name="hint_amount">Amount</string>
-	<string name="hint_transactionId">Transaction Id</string>
+	<string name="hint_refundamount">Refund amount</string>
+	<string name="hint_transactionId">Transaction id</string>
 	<string name="lbl_transfer">Transfer</string>
 	<string name="lbl_search">Search</string>
-	<string name="lbl_refund_transfer">Refund Transfer</string>
+	<string name="lbl_refund_transfer">Refund</string>
+	<string name="lbl_cancel_transfer">Cancel</string>
 </resources>

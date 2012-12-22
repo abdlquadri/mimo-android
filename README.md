@@ -52,12 +52,12 @@ MimoTransactoin class:
 	==> search for the profile based on the parameters passed. e.g. by username, by email-id, by phone-no, by account no.
 
 	- String TransferFundRequest(String p_url) strTransferUrl :(String)type callback
-	==>send the request URL to transfer fund and "Re-fund" the earlier transfered fund.
+	==>send the request URL for Making "Fund Transfer, Cancel Fund Transfer & Re-Fund Transfer Request.
 
 	-(String)convertStreamToString(InputStream p_is)stream 
 	==> take the Input Stream returned from the Server and convert into string.
-
-
+	
+	
 ## Credits
 
 
